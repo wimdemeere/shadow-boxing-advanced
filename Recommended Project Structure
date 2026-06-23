@@ -1,0 +1,26 @@
+shadow-boxing-advanced/
+├── public/
+│   ├── audio/                  # Pre-recorded technique audio
+│   │   ├── boxing/
+│   │   ├── kickboxing/
+│   │   ├── muay-thai/
+│   │   └── mma/
+│   ├── sounds/                 # Bell, timer sounds, etc.
+│   └── icons/
+├── src/
+│   ├── components/             # Reusable UI components
+│   ├── modules/                # Core logic (audio, timer, workout engine)
+│   ├── utils/                  # Helper functions
+│   └── main.js                 # App entry point
+├── styles/
+│   └── main.css                # Custom styles (Tailwind or plain CSS)
+├── docs/
+│   ├── ROADMAP.md
+│   ├── ARCHITECTURE.md
+│   ├── AUDIO-STRATEGY.md
+│   └── DECISIONS.md
+├── index.html                  # Main HTML shell
+├── manifest.json
+├── sw.js                       # Service Worker
+├── package.json                # For build tooling (optional at first)
+└── README.md
