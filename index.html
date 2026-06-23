@@ -250,6 +250,42 @@
         const $    = id  => document.getElementById(id);
         const mmss = sec => `${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`;
         const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+        // ── Boxing Bell Sound ─────────────────────────────────────────────────
+function playBell(duration = 1200) {
+    if (!('AudioContext' in window || 'webkitAudioContext' in window)) return;
+
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    const filter = audioCtx.createBiquadFilter();
+
+    // Classic boxing bell tone
+    oscillator.type = 'sine';
+    oscillator.frequency.value = 880; // A5
+
+    filter.type = 'lowpass';
+    filter.frequency.value = 1200;
+
+    gainNode.gain.value = 0.6;
+
+    // Connect nodes
+    oscillator.connect(filter);
+    filter.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+
+    // Play
+    oscillator.start();
+
+    // Fade out
+    setTimeout(() => {
+        gainNode.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.8);
+    }, duration - 800);
+
+    setTimeout(() => {
+        oscillator.stop();
+        audioCtx.close();
+    }, duration);
+}
 
         // ── State ─────────────────────────────────────────────────────────────
         let currentMode = "MMA", isComboMode = true;
@@ -681,6 +717,7 @@
 
         function runRound() {
             isResting = false;
+            playBell();
             $("round-info").textContent = `${currentRound}/${numRounds}`;
             $("time-left").textContent = mmss(roundLength);
             $("elapsed-info").textContent = mmss(0);
@@ -740,6 +777,7 @@
             isWorkoutRunning = false;
             releaseWakeLock();
             clearAllTimers();
+            playBell(800); // shorter bell at the end
             $("technique-display").innerHTML = 'Workout Complete!';
             fitText();
             $("main-btn").innerHTML = `<i class="fa-solid fa-play"></i> START`;
