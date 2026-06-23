@@ -1,0 +1,22 @@
+shadow-boxing-advanced/
+├── docs/
+│   ├── ARCHITECTURE.md
+│   ├── AUDIO-STRATEGY.md
+│   └── DECISIONS.md
+├── public/
+│   ├── audio/          (placeholder folders for boxing, kickboxing, etc.)
+│   ├── sounds/
+│   └── icons/
+├── src/
+│   ├── components/
+│   ├── modules/
+│   │   ├── audio-manager.js
+│   │   └── workout-engine.js
+│   └── main.js
+├── styles/
+│   └── main.css
+├── ROADMAP.md
+├── README.md
+├── index.html
+├── manifest.json
+└── sw.js
